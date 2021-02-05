@@ -1,7 +1,31 @@
+import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import styles from "./country.module.css";
+
+const getCountry = async (id) => {
+  const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
+
+  const country = await res.json();
+
+  return country;
+};
+
 const Country = ({ country }) => {
-  console.log(country);
+  const [borders, setBorders] = useState([]);
+
+  const getBorders = async () => {
+    const borders = await Promise.all(
+      country.borders.map((border) => getCountry(border))
+    );
+
+    setBorders(borders);
+  };
+  useEffect(() => {
+    getBorders();
+  }, []);
+
+  console.log(borders);
+
   return (
     <Layout title={country.name}>
       <div>
@@ -59,6 +83,23 @@ const Country = ({ country }) => {
             <div className={styles.details_panel_label}>Gini</div>
             <div className={styles.details_panel_value}>{country.gini}%</div>
           </div>
+
+          <div className={styles.details_panel_borders}>
+            <div className={styles.details_panel_borders_label}>
+              Neighbouring Countries
+            </div>
+            <div className={styles.details_panel_borders_container}>
+              {borders.map(({ flag, name }) => (
+                <div className={styles.details_panel_borders_country}>
+                  <img src={flag} alt={flag} />
+
+                  <div className={styles.details_panel_borders_name}>
+                    {name}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </Layout>
@@ -68,11 +109,7 @@ const Country = ({ country }) => {
 export default Country;
 
 export const getServerSideProps = async ({ params }) => {
-  const res = await fetch(
-    `https://restcountries.eu/rest/v2/alpha/${params.id}`
-  );
-
-  const country = await res.json();
+  const country = await getCountry(params.id);
 
   return {
     props: {
