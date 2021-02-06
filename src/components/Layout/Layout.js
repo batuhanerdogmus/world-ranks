@@ -69,7 +69,7 @@ const Layout = ({ children, title = "Worl Ranks" }) => {
 
       <main className={styles.main}>{children}</main>
 
-      <footer className={styles.footer}>footer</footer>
+      <footer className={styles.footer}>Created by @batuhanErdogmus</footer>
     </div>
   );
 };
