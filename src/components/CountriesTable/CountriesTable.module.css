@@ -1,5 +1,6 @@
 .heading {
   display: flex;
+  padding: 20px;
 }
 .heading button {
   border: none;
@@ -7,13 +8,19 @@
   outline: none;
   cursor: pointer;
 }
+.heading_flag {
+  flex: 1;
+  margin-right: 16px;
+}
 
 .heading_name,
-.heading_population {
-  flex: 1;
-  padding: 20px;
+.heading_population,
+.heading_area,
+.heading_gini {
+  flex: 4;
   color: var(--text-color-secondary);
   font-weight: 500;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +32,7 @@
 .heading_arrow {
   color: var(--primary-color);
   display: flex;
+  justify-content: center;
   align-items: center;
   margin-left: 2px;
 }
@@ -38,7 +46,7 @@
   margin-bottom: 16px;
   box-shadow: var(--box-shadow);
   font-weight: 500;
-
+  cursor: pointer;
   transition: all 200ms ease-in-out;
 }
 .row:hover {
@@ -47,9 +55,31 @@
 }
 
 .name {
-  flex: 1;
   text-align: left;
+  align-self: center;
 }
-.population {
+.name,
+.population,
+.area,
+.gini {
+  align-self: center;
+  flex: 4;
+}
+
+.flag {
   flex: 1;
+  margin-right: 16px;
+}
+.flag img {
+  width: 100%;
+}
+
+@media screen and (max-width: 720px) {
+  .heading_area,
+  .heading_gini,
+  .area,
+  .gini,
+  .flag {
+    display: none;
+  }
 }

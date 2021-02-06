@@ -23,11 +23,15 @@ export default function Home({ countries }) {
 
   return (
     <Layout>
-      <div className={styles.counts}>Found {countries.length} countries</div>
-      <SearchInput
-        placeholder="Filter by Name, Region or SubRegion"
-        onChange={onInputChange}
-      />
+      <div className={styles.inputContainer}>
+        <div className={styles.input}>
+          <SearchInput
+            placeholder="Filter by Name, Region or SubRegion"
+            onChange={onInputChange}
+          />
+        </div>
+        <div className={styles.counts}>Found {countries.length} countries</div>
+      </div>
       <CountriesTable countries={filteredCountries} />
     </Layout>
   );

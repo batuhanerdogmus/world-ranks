@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Layout from "../../components/Layout/Layout";
 import styles from "./Country.module.css";
+import Link from "next/link";
 
 const getCountry = async (id) => {
   const res = await fetch(`https://restcountries.eu/rest/v2/alpha/${id}`);
@@ -22,9 +23,7 @@ const Country = ({ country }) => {
   };
   useEffect(() => {
     getBorders();
-  }, []);
-
-  console.log(borders);
+  }, [country]);
 
   return (
     <Layout title={country.name}>
@@ -96,14 +95,16 @@ const Country = ({ country }) => {
                 Neighbouring Countries
               </div>
               <div className={styles.details_panel_borders_container}>
-                {borders.map(({ flag, name }) => (
-                  <div className={styles.details_panel_borders_country}>
-                    <img src={flag} alt={flag} />
+                {borders.map(({ flag, name, alpha3Code }) => (
+                  <Link href={`/country/${alpha3Code}`} key={alpha3Code}>
+                    <div className={styles.details_panel_borders_country}>
+                      <img src={flag} alt={flag} />
 
-                    <div className={styles.details_panel_borders_name}>
-                      {name}
+                      <div className={styles.details_panel_borders_name}>
+                        {name}
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
