@@ -12,7 +12,7 @@ const Layout = ({ children, title = "Worl Ranks" }) => {
       "data-theme",
       localStorage.getItem("theme")
     );
-    setTheme(localStorage.getItem("theme"));
+    setTheme(localStorage.setItem("theme", "light"));
   }, []);
   const switchTheme = () => {
     if (theme === "light") {
