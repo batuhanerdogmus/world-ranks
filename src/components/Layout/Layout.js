@@ -8,17 +8,20 @@ const Layout = ({ children, title = "Worl Ranks" }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      localStorage.getItem("theme")
-    );
-    setTheme(localStorage.setItem("theme", "light"));
+    if (localStorage.getItem("theme") === null) {
+      setTheme(localStorage.setItem("theme", "light"));
+    } else {
+      document.documentElement.setAttribute(
+        "data-theme",
+        localStorage.getItem("theme")
+      );
+    }
   }, []);
   const switchTheme = () => {
-    if (theme === "light") {
-      saveTheme("dark");
-    } else {
+    if (theme === "dark") {
       saveTheme("light");
+    } else {
+      saveTheme("dark");
     }
   };
 
